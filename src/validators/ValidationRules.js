@@ -1,15 +1,11 @@
-const { body, validationResult } = require("express-validator");
-const { validarCPF } = require("../Validators/cpfValidator");
+const { body } = require("express-validator");
 
 const ValidationRules = () => {
   return [
-    body("CPF").notEmpty().withMessage("Campo cpf obrigatório"),
-    body("CPF").custom((value) => {
-      if (!validarCPF(value)) throw new Error("CPF é inválido!");
-      return true;
-    }).withMessage("CPF inválido"),
-    body("nomeDoador").notEmpty().withMessage("Campo nome obrigatório"),
-    body("nomeInstituicao").notEmpty().withMessage("Campo nome instituição obrigatório"),
+    body("nome").notEmpty().withMessage("Nome não enviado"),
+    body("tamanhoCintura").not().isIn([0]).withMessage("tamanhoCintura não pode ser 0"),
+    body("quadril").not().isIn([0]).withMessage("quadril não pode ser 0"),
+    body("sexo").isIn(['F', 'f', 'M', 'm']).withMessage("opcao invalida em sexo"),
   ];
 };
 
